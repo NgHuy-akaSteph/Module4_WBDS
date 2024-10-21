@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html   lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Thông tin người dùng</title>
@@ -43,7 +43,7 @@
 <p>
   <a href="/users/home">Quay lại trang chủ</a>
 </p>
-<form id="form" th:action="@{/users/edit} " th:object="${user}" th:method="post" accept-charset="UTF-8">
+<form id="form" th:action="@{/users/edit} " th:object="${user}" th:method="post">
   <div>
     <input th:field="*{id}" type="hidden">
   </div>

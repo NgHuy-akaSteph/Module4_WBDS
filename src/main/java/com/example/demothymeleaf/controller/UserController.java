@@ -51,7 +51,7 @@ public class UserController {
         return "edit-form";
     }
 
-    @PostMapping(value = "/edit", produces = "application/x-www-form-urlencoded;charset=UTF-8")
+    @PostMapping(value = "/edit")
     public String edit( @ModelAttribute("user") User user) {
         user.setId(user.getId());
         userService.save(user);

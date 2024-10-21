@@ -1,5 +1,7 @@
 package com.example.demothymeleaf.entities;
 
+
+
 public class User {
     private int id;
     private String name;
