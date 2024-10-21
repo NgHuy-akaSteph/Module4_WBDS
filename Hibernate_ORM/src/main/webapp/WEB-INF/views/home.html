@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="css/custom.css" >
+</head>
+<body>
+<h3>Danh sách người dùng</h3>
+<div>
+    <a href="/users/create">Thêm người dùng</a>
+    <div class="notify">
+        <span th:if="${message} != null" th:text="${message}"></span>
+    </div>
+</div>
+<table id="users">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Họ và tên</th>
+        <th>Ngày sinh</th>
+        <th>Email</th>
+        <th colspan="2">Thao tác</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row, step : ${list}">
+        <td th:text="${step.count}" ></td>
+        <td th:text="${row.name}" ></td>
+        <td th:text="${row.getDobString()}" ></td>
+        <td th:text="${row.email}" ></td>
+        <td><a class="editBtn" th:href="@{'/users/edit/' + ${row.id}}" th:data-id="${row.id}">Sửa</a></td>
+        <td><a class="deleteBtn" th:href="@{'/users/delete/' + ${row.id}}" th:data-id="${row.id}" >Xóa</a></td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    document.querySelectorAll('.editBtn').forEach(function (btn) {
+        btn.addEventListener('click', function (event) {
+            event.preventDefault();
+            const userId = this.getAttribute('data-id');
+            if (confirm(`Bạn có chắc chắn muốn sửa thông người dùng ${userId} không?`)) {
+                window.location.href = this.href;
+            }
+        });
+    });
+
+    document.querySelectorAll('.deleteBtn').forEach(function (btn) {
+        btn.addEventListener('click', function (event) {
+            event.preventDefault();
+            const userId = this.getAttribute('data-id');
+            if (confirm(`Bạn có chắc chắn muốn xóa người dùng ${userId} không?`)) {
+                window.location.href = this.href;
+            }
+        });
+    });
+
+</script>
+</body>
+</html>
