@@ -32,8 +32,8 @@
         <td th:text="${row.name}" ></td>
         <td th:text="${row.getDobString()}" ></td>
         <td th:text="${row.email}" ></td>
-        <td><a class="editBtn" th:href="@{'/users/edit/' + ${row.id}}" th:data-id="${row.id}">Sửa</a></td>
-        <td><a class="deleteBtn" th:href="@{'/users/delete/' + ${row.id}}" th:data-id="${row.id}" >Xóa</a></td>
+        <td><a class="editBtn" th:href="@{'/users/edit/' + ${row.id}}" th:data-id="${step.count}">Sửa</a></td>
+        <td><a class="deleteBtn" th:href="@{'/users/delete/' + ${row.id}}" th:data-id="${step.count}" >Xóa</a></td>
     </tr>
     </tbody>
 </table>
@@ -41,8 +41,8 @@
     document.querySelectorAll('.editBtn').forEach(function (btn) {
         btn.addEventListener('click', function (event) {
             event.preventDefault();
-            const userId = this.getAttribute('data-id');
-            if (confirm(`Bạn có chắc chắn muốn sửa thông người dùng ${userId} không?`)) {
+            const stt = this.getAttribute('data-id');
+            if (confirm(`Bạn có chắc chắn muốn sửa thông người dùng ${stt} không?`)) {
                 window.location.href = this.href;
             }
         });
@@ -51,8 +51,8 @@
     document.querySelectorAll('.deleteBtn').forEach(function (btn) {
         btn.addEventListener('click', function (event) {
             event.preventDefault();
-            const userId = this.getAttribute('data-id');
-            if (confirm(`Bạn có chắc chắn muốn xóa người dùng ${userId} không?`)) {
+            const stt = this.getAttribute('data-id');
+            if (confirm(`Bạn có chắc chắn muốn xóa người dùng ${stt} không?`)) {
                 window.location.href = this.href;
             }
         });

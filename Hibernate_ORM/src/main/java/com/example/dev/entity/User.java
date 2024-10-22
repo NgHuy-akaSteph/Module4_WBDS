@@ -11,13 +11,13 @@ import java.time.format.DateTimeFormatter;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id = 0;
 
     @Column(name = "name")
     private String name;
 
     @Column(name="dob")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+//    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date dob;
 
     @Column(name="email")

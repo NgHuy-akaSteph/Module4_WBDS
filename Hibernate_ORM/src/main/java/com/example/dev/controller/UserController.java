@@ -49,11 +49,10 @@ public class UserController {
 
     @PostMapping("/users/create")
     public String createUser(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes){
-        user.setId(0);
         if(userService.save(user)){
-            redirectAttributes.addFlashAttribute("message", "User created successfully");
+            redirectAttributes.addFlashAttribute("message", "User saved successfully");
         } else {
-            redirectAttributes.addFlashAttribute("message", "Error creating user");
+            redirectAttributes.addFlashAttribute("message", "Error saving user");
         }
         return "redirect:/users";
     }
