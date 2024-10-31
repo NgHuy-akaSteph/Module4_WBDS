@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<h1>Blog List</h1>
+<a href="/create">Create a new blog</a>
+<br>
+<br>
+<div>
+    <form th:action="@{/search}" method="get">
+        <label>
+            <input type="text" name="keyword" placeholder="Search by title">
+        </label>
+        <button type="submit">Search</button>
+    </form>
+</div>
+<table border="1">
+    <tr>
+        <th>No.</th>
+        <th>Title</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Detail</th>
+        <th colspan="2">Option</th>
+    </tr>
+    <tr th:each="row, step : ${blogs}">
+        <td th:text="${step.count}"></td>
+        <td th:text="${row.title}"></td>
+        <td th:text="${row.getFormattedCreatedAt()}"></td>
+        <td th:text="${row.getFormattedUpdatedAt()}"></td>
+        <td><a th:href="@{'/blog/' + ${row.id}}">Detail</a></td>
+        <td><a th:href="@{'/blog/' + ${row.id} + '/edit'}">Edit</a></td>
+        <td><a th:href="@{'/blog/' + ${row.id} + '/delete'}">Delete</a></td>
+    </tr>
+<!--    <div>-->
+<!--        <a th:if="${blogs.hasPrevious()}" th:href="@{'/home?page=' + ${blogs.previousPageable().pageNumber}}">Previous</a>-->
+<!--        <a th:if="${blogs.hasNext()}" th:href="@{'/home?page=' + ${blogs.nextPageable().pageNumber}}">Next</a>-->
+<!--    </div>-->
+</table>
+<a th:if="${blogs.hasPrevious()}" th:href="@{'/home?page=' + ${blogs.previousPageable().pageNumber}}">Previous</a>
+<a th:if="${blogs.hasNext()}" th:href="@{'/home?page=' + ${blogs.nextPageable().pageNumber}}">Next</a>
+</body>
+</html>

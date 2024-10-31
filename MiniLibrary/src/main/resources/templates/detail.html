@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center my-4">Book Details</h2>
+    <div class="d-flex justify-content-center mb-4">
+        <a class="btn btn-secondary" th:href="@{/}">Back to Home</a>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <table class="table table-bordered">
+                <tbody>
+                <tr class="mb-3">
+                    <th>ID:</th>
+                    <td><span th:text="${book.id}"></span></td>
+                </tr>
+                <tr class="mb-3">
+                    <th>Title:</th>
+                    <td><span th:text="${book.title}"></span></td>
+                </tr>
+                <tr class="mb-3">
+                    <th>Author:</th>
+                    <td><span th:text="${book.author}"></span></td>
+                </tr>
+                <tr class="mb-3">
+                    <th>Category:</th>
+                    <td><span th:text="${book.category}"></span></td>
+                </tr>
+                <tr class="mb-3">
+                    <th>Publisher:</th>
+                    <td><span th:text="${book.publisher}"></span></td>
+                </tr>
+                <tr class="mb-3">
+                    <th>Year:</th>
+                    <td><span th:text="${book.year}"></span></td>
+                </tr>
+                <tr class="mb-3">
+                    <th>Quantity:</th>
+                    <td><span th:text="${book.quantity}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-primary mr-2" th:href="@{'/borrow/'+ ${book.id}}">Borrow</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

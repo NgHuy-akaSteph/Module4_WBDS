@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+    <h1>Categories</h1>
+    <table border="1">
+        <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Blogs</th>
+            <th colspan="2">Option</th>
+        </tr>
+        <tr th:each="row, step : ${categories}">
+            <td th:text="${step.count}"></td>
+            <td th:text="${row.name}"></td>
+            <td><a th:href="'/category/' + ${row.id}">Details</a></td>
+            <td><a th:href="'/category/' + ${row.id} + '/edit'">Edit</a></td>
+            <td><a th:href="'/category/' + ${row.id} + '/delete'">Delete</a></td>
+        </tr>
+    </table>
+</body>
+</html>
