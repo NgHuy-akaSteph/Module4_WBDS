@@ -1,8 +1,11 @@
 package com.example.ss9.controller;
 
+import com.example.ss9.entity.Book;
 import com.example.ss9.service.BookService;
 import com.example.ss9.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +23,12 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    private static int pageSize = 4;
-
     @GetMapping("/")
-    public String displayBooks(@RequestParam(name="page", required = false, defaultValue = "0") Integer page, Model model) {
-        model.addAttribute("list", bookService.findAll(page, pageSize));
+    public String displayBooks(@RequestParam(name="pageNo", required = false, defaultValue = "1") Integer pageNo, Model model) {
+        Page<Book> list = bookService.findAll(pageNo);
+        model.addAttribute("list", list);
+        model.addAttribute("totalPages", list.getTotalPages());
+        model.addAttribute("currentPage", pageNo);
         return "home";
     }
 
@@ -36,8 +40,11 @@ public class BookController {
 
     @GetMapping("/borrow/{id}")
     public String borrowBook(@PathVariable("id") Long id, Model model) {
-        bookService.borrowBook(id);
-        return "redirect:/";
+        Integer borrowedId = bookService.borrowBook(id);
+        if(borrowedId != null){
+            model.addAttribute("borrowedId", borrowedId);
+        }
+        return "borrow-result";
     }
 
     @GetMapping("/return-page")
@@ -51,6 +58,7 @@ public class BookController {
             return "redirect:/";
         }
         redirectAttributes.addFlashAttribute("message", "Not found borrowed book's id");
+        redirectAttributes.addFlashAttribute("borrowedId", id);
         return "redirect:/return-page";
     }
 }

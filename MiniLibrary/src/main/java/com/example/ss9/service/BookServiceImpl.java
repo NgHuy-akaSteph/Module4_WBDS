@@ -7,6 +7,7 @@ import com.example.ss9.entity.BorrowedBook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +25,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Page<Book> findAll(int page, int size) {
-        return bookDAO.findAll(PageRequest.of(page, size));
+    public Page<Book> findAll(int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1, 4);
+        return bookDAO.findAll(pageable);
     }
 
     @Override
@@ -34,17 +36,19 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean borrowBook(Long id) {
+    public Integer borrowBook(Long id) {
         Book book = bookDAO.findById(id).orElse(null);
         if(book != null){
             int quantity = book.getQuantity();
             if(quantity > 0){
                 book.setQuantity(quantity - 1);
-                book.addBorrowedBook(new BorrowedBook());
+                BorrowedBook borrowedBook = new BorrowedBook(book);
+                book.addBorrowedBook(borrowedBook);
                 bookDAO.save(book);
+                return borrowedBook.getId();
             }
         }
-        return false;
+        return null;
     }
 
     @Override

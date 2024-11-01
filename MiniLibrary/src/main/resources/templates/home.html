@@ -54,16 +54,16 @@
         </tr>
         </tbody>
     </table>
-    <nav aria-label="Page navigation">
+    <nav aria-label="...">
         <ul class="pagination justify-content-end">
-            <li>
-                <a class="page-link" th:href="@{/(page=${list.number - 1})}" th:if="${list.hasPrevious()}">Previous</a>
+            <li class="page-item">
+                <a class="page-link" th:href="@{/(pageNo=${currentPage - 1})}" th:if="${list.hasPrevious()}">Previous</a>
             </li>
-            <li th:each="i : ${#numbers.sequence(0, list.totalPages - 1)}" th:classappend="(${i} == ${list.number}) ? 'active' : '' ">
-                <a class="page-link" th:href="@{/(page=${i})}" th:text="${i+1}" ></a>
+            <li class = "page-item" th:each="i : ${#numbers.sequence(1, totalPages)}" th:classappend="${ currentPage == i ? 'active' : ''}">
+                <a class = "page-link" th:href="@{/(pageNo=${i})}" th:text="${i}" ></a>
             </li>
-            <li>
-                <a class="page-link" th:href="@{/(page=${list.number+1})}" th:if="${list.hasNext()}">Next</a>
+            <li class = "page-item">
+                <a class = "page-link" th:href="@{/(pageNo=${currentPage + 1})}" th:if="${list.hasNext()}">Next</a>
             </li>
         </ul>
     </nav>

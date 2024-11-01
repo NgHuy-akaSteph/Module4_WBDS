@@ -7,11 +7,11 @@ import org.springframework.data.domain.Page;
 
 public interface BookService {
 
-    Page<Book> findAll(int page, int size);
+    Page<Book> findAll(int pageNo);
 
     Book findById(Long id);
 
-    boolean borrowBook(Long id);
+    Integer borrowBook(Long id);
 
     boolean returnBook(Integer borrowedId);
 }
